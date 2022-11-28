@@ -7,11 +7,28 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Single from './pages/Single';
 import Write from './pages/Write';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Layout from './lib/utilities/Layout';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/post/:1234',
+        element: <Single />,
+      },
+      {
+        path: '/write',
+        element: <Write />,
+      },
+    ],
   },
   {
     path: '/login',
@@ -22,7 +39,7 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: '/single',
+    path: '/post/:id',
     element: <Single />,
   },
   {
