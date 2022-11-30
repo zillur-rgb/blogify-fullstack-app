@@ -10,29 +10,32 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import signUp from '../images/signUp.jpg';
 
 const Register = () => {
   return (
     <HStack maxH={'100vh'} overflow="hidden" spacing={0} pos="relative">
-      <Box
-        pos={'absolute'}
-        top="10"
-        left={10}
-        bg={'#fff'}
-        borderRadius="50px"
-        w={'70px'}
-        h="70px"
-        display={'flex'}
-        alignItems={'center'}
-        justifyContent="center"
-        cursor={'pointer'}
-        _hover={{
-          opacity: '.8',
-        }}
-      >
-        <Icon as={ChevronLeftIcon} fontSize={48} color="#000" />
-      </Box>
+      <Link to="/">
+        <Box
+          pos={'absolute'}
+          top="10"
+          left={10}
+          bg={'#fff'}
+          borderRadius="50px"
+          w={'70px'}
+          h="70px"
+          display={'flex'}
+          alignItems={'center'}
+          justifyContent="center"
+          cursor={'pointer'}
+          _hover={{
+            opacity: '.8',
+          }}
+        >
+          <Icon as={ChevronLeftIcon} fontSize={48} color="#000" />
+        </Box>
+      </Link>
       <Image src={signUp} w={'50%'} />
       <Box as={'form'} w="50%" mt={10}>
         <Flex w="100%">

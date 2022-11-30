@@ -10,6 +10,7 @@ import Write from './pages/Write';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Layout from './lib/utilities/Layout';
+import Stats from './pages/Stats';
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: '/register',
+    path: '/signup',
     element: <Register />,
   },
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: '/write',
     element: <Write />,
+  },
+  {
+    path: '/stats',
+    element: <Stats />,
   },
 ]);
 

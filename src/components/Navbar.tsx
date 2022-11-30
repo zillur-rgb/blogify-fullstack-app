@@ -7,7 +7,7 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
+  Link as ChakraLink,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -21,12 +21,13 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <Box px={200}>
       <Flex
         bg={useColorModeValue('white', 'gray.800')}
         color={useColorModeValue('gray.600', 'white')}
@@ -72,27 +73,35 @@ export default function Navbar() {
           direction={'row'}
           spacing={6}
         >
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            _hover={{
-              bg: 'pink.300',
-            }}
-          >
-            Sign Up
-          </Button>
+          <Link to="/login">
+            <Button
+              as={'a'}
+              fontSize={'sm'}
+              fontWeight={400}
+              bg="brand.100"
+              color="#fff"
+              href={'#'}
+              _hover={{
+                opacity: 0.7,
+              }}
+            >
+              Sign In
+            </Button>
+          </Link>
+          <Link to="/signup">
+            <Button
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'brand.300'}
+              _hover={{
+                opacity: 0.7,
+              }}
+            >
+              Sign Up
+            </Button>
+          </Link>
         </Stack>
       </Flex>
 
@@ -112,80 +121,23 @@ const DesktopNav = () => {
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
-            <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize={'sm'}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
-
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}
-              >
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
+          <Link to={navItem.href ? navItem.href : '#'}>
+            <Text
+              fontSize={'sm'}
+              fontWeight={500}
+              color={linkColor}
+              _hover={{
+                textDecoration: 'none',
+                color: linkHoverColor,
+              }}
+              p={2}
+            >
+              {navItem.label}
+            </Text>
+          </Link>
         </Box>
       ))}
     </Stack>
-  );
-};
-
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-  return (
-    <Link
-      href={href}
-      role={'group'}
-      display={'block'}
-      p={2}
-      rounded={'md'}
-      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
-    >
-      <Stack direction={'row'} align={'center'}>
-        <Box>
-          <Text
-            transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
-            fontWeight={500}
-          >
-            {label}
-          </Text>
-          <Text fontSize={'sm'}>{subLabel}</Text>
-        </Box>
-        <Flex
-          transition={'all .3s ease'}
-          transform={'translateX(-10px)'}
-          opacity={0}
-          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-          justify={'flex-end'}
-          align={'center'}
-          flex={1}
-        >
-          <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
-        </Flex>
-      </Stack>
-    </Link>
   );
 };
 
@@ -208,50 +160,32 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
-      <Flex
-        py={2}
-        as={Link}
-        href={href ?? '#'}
-        justify={'space-between'}
-        align={'center'}
-        _hover={{
-          textDecoration: 'none',
-        }}
-      >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}
+      <a href={href}>
+        <Flex
+          py={2}
+          justify={'space-between'}
+          align={'center'}
+          _hover={{
+            textDecoration: 'none',
+          }}
         >
-          {label}
-        </Text>
-        {children && (
-          <Icon
-            as={ChevronDownIcon}
-            transition={'all .25s ease-in-out'}
-            transform={isOpen ? 'rotate(180deg)' : ''}
-            w={6}
-            h={6}
-          />
-        )}
-      </Flex>
-
-      <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
-        <Stack
-          mt={2}
-          pl={4}
-          borderLeft={1}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
-          align={'start'}
-        >
-          {children &&
-            children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
-                {child.label}
-              </Link>
-            ))}
-        </Stack>
-      </Collapse>
+          <Text
+            fontWeight={600}
+            color={useColorModeValue('gray.600', 'gray.200')}
+          >
+            {label}
+          </Text>
+          {children && (
+            <Icon
+              as={ChevronDownIcon}
+              transition={'all .25s ease-in-out'}
+              transform={isOpen ? 'rotate(180deg)' : ''}
+              w={6}
+              h={6}
+            />
+          )}
+        </Flex>
+      </a>
     </Stack>
   );
 };
