@@ -54,17 +54,17 @@ export default function Navbar() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
+          <Button
+            w="70px"
+            h="70px"
+            bg={'brand.300'}
+            borderRadius={50}
             textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
             color={useColorModeValue('gray.800', 'white')}
           >
-            Logo
-          </Text>
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
-          </Flex>
+            Reden Blogs
+          </Button>
         </Flex>
 
         <Stack
@@ -73,6 +73,7 @@ export default function Navbar() {
           direction={'row'}
           spacing={6}
         >
+          <DesktopNav />
           <Link to="/login">
             <Button
               as={'a'}
@@ -85,10 +86,10 @@ export default function Navbar() {
                 opacity: 0.7,
               }}
             >
-              Sign In
+              Write New Post
             </Button>
           </Link>
-          <Link to="/signup">
+          <Link to="/login">
             <Button
               display={{ base: 'none', md: 'inline-flex' }}
               fontSize={'sm'}
@@ -99,7 +100,7 @@ export default function Navbar() {
                 opacity: 0.7,
               }}
             >
-              Sign Up
+              Sign In
             </Button>
           </Link>
         </Stack>
@@ -199,19 +200,19 @@ interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'All Blogs',
-    href: '/',
+    label: 'Arts',
+    href: '/arts',
   },
   {
-    label: 'My Blogs',
-    href: '/',
+    label: 'Science',
+    href: '/science',
   },
   {
-    label: 'Create New',
-    href: '/write',
+    label: 'Technology',
+    href: '/technology',
   },
   {
-    label: 'Stats',
-    href: '/stats',
+    label: 'Food',
+    href: '/food',
   },
 ];
